@@ -2,8 +2,12 @@ import { IoTrendingUpSharp } from "react-icons/io5";
 import Trending from "./components/Post/Trending";
 import BlogPost from "./components/Post/BlogPost";
 import CategoryTag from "./components/Tags/CategoryTag";
+import LoginModal from "./components/Auth/LoginModal";
+import { useStateValue } from "./store";
+import * as actionTypes from "./store/actionTypes";
 
 function App() {
+  const [state, dispatch] = useStateValue();
   return (
     <>
       <div className="bg-yello p-4 bg-yellow">
@@ -11,7 +15,15 @@ function App() {
           <h2 className="font-bold text-4xl">Medium</h2>
           <div className="flex gap-5 items-center">
             {/* <Link>Sign in</Link> */}
-            <button className="bg-black text-white rounded-full px-5 py-2 text-sm hover:scale-125 duration-200">
+            <button
+              className="bg-black text-white rounded-full px-5 py-2 text-sm hover:scale-125 duration-200"
+              onClick={() =>
+                dispatch({
+                  type: actionTypes.SET_OPEN_LOGIN_MODAL,
+                  payload: true,
+                })
+              }
+            >
               Login
             </button>
           </div>
@@ -71,6 +83,7 @@ function App() {
           </div>
         </div>
       </section>
+      <LoginModal />
     </>
   );
 }
