@@ -7,3 +7,12 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+body {
+  counter-reset: trending;
+}
+
+.trending h2::before {
+  counter-increment: trending;
+  content: "0"counter(trending);
+}
