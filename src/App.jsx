@@ -17,22 +17,27 @@ function App() {
       <div className="bg-yello p-4 bg-yellow">
         <div className="w-8/12 mx-auto flex justify-between items-center">
           <h2 className="font-bold text-4xl">Medium</h2>
-          <div className="relative">
-            {state.user ? (
-              <ProfileButton />
-            ) : (
-              <button
-                className="bg-black text-white rounded-full px-5 py-2 text-sm hover:scale-125 duration-200"
-                onClick={() =>
-                  dispatch({
-                    type: actionTypes.SET_OPEN_LOGIN_MODAL,
-                    payload: true,
-                  })
-                }
-              >
-                Login
-              </button>
-            )}
+          <div className="flex items-center gap-10">
+            <div className="text font-semibold">
+              <Link>All Posts</Link>
+            </div>
+            <div className="relative">
+              {state.user ? (
+                <ProfileButton />
+              ) : (
+                <button
+                  className="bg-black text-white rounded-full px-5 py-2 text-sm hover:scale-125 duration-200"
+                  onClick={() =>
+                    dispatch({
+                      type: actionTypes.SET_OPEN_LOGIN_MODAL,
+                      payload: true,
+                    })
+                  }
+                >
+                  Login
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
