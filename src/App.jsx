@@ -5,27 +5,34 @@ import CategoryTag from "./components/Tags/CategoryTag";
 import LoginModal from "./components/Auth/LoginModal";
 import { useStateValue } from "./store";
 import * as actionTypes from "./store/actionTypes";
+import SignupModal from "./components/Auth/SignupModal";
+import { Link } from "react-router-dom";
+import ProfileButton from "./components/Navabar/ProfileButton";
 
 function App() {
   const [state, dispatch] = useStateValue();
+
   return (
     <>
       <div className="bg-yello p-4 bg-yellow">
         <div className="w-8/12 mx-auto flex justify-between items-center">
           <h2 className="font-bold text-4xl">Medium</h2>
-          <div className="flex gap-5 items-center">
-            {/* <Link>Sign in</Link> */}
-            <button
-              className="bg-black text-white rounded-full px-5 py-2 text-sm hover:scale-125 duration-200"
-              onClick={() =>
-                dispatch({
-                  type: actionTypes.SET_OPEN_LOGIN_MODAL,
-                  payload: true,
-                })
-              }
-            >
-              Login
-            </button>
+          <div className="relative">
+            {state.user ? (
+              <ProfileButton />
+            ) : (
+              <button
+                className="bg-black text-white rounded-full px-5 py-2 text-sm hover:scale-125 duration-200"
+                onClick={() =>
+                  dispatch({
+                    type: actionTypes.SET_OPEN_LOGIN_MODAL,
+                    payload: true,
+                  })
+                }
+              >
+                Login
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -84,6 +91,7 @@ function App() {
         </div>
       </section>
       <LoginModal />
+      <SignupModal />
     </>
   );
 }
