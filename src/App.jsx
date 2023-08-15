@@ -26,7 +26,7 @@ function App() {
                 <ProfileButton />
               ) : (
                 <button
-                  className="bg-black text-white rounded-full px-5 py-2 text-sm hover:scale-125 duration-200"
+                  className="bg-black text-white rounded-full px-5 py-2 text-sm"
                   onClick={() =>
                     dispatch({
                       type: actionTypes.SET_OPEN_LOGIN_MODAL,

@@ -2,9 +2,23 @@ import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { useStateValue } from "../../store";
 import * as actionTypes from "../../store/actionTypes";
+import { login } from "../../services/auth";
+import { toast } from "react-toastify";
 
 function LoginModal() {
   const [state, dispatch] = useStateValue();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async () => {
+    try {
+      // const res = await login({ email, password });
+      // console.log(res.data);
+    } catch (error) {
+      console.log(error);
+      toast.error("Invalid credentials!");
+    }
+  };
 
   const openSignUpModal = () => {
     dispatch({
@@ -39,6 +53,7 @@ function LoginModal() {
               <input
                 type="email"
                 className="border border-black outline-none rounded-md p-2"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -46,10 +61,15 @@ function LoginModal() {
               <input
                 type="password"
                 className="border border-black outline-none rounded-md p-2"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
-            <button className="bg-yellow rounded-lg px-8 py-3 font-bold">
+            <button
+              className="bg-yellow rounded-lg px-8 py-3 font-bold disabled:cursor-not-allowed disabled:bg-gray-400"
+              onClick={handleLogin}
+              disabled={email.length === 0 || password.length === 0}
+            >
               Login
             </button>
           </div>

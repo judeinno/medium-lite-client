@@ -2,8 +2,11 @@ import React from "react";
 import ProfileButton from "./ProfileButton";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { Link } from "react-router-dom";
+import { useStateValue } from "../../store";
 
 function Navbar() {
+  const [state, dispatch] = useStateValue();
+
   return (
     <div className="bg-yellow p-4 border-b border-black">
       <div className="w-8/12 mx-auto flex justify-between items-center">
@@ -15,7 +18,21 @@ function Navbar() {
             <HiOutlinePencilSquare className="text-2xl" />
             <p>Write</p>
           </Link>
-          <ProfileButton />
+          {state.user ? (
+            <ProfileButton />
+          ) : (
+            <button
+              className="bg-black text-white rounded-full px-5 py-2 text-sm"
+              onClick={() =>
+                dispatch({
+                  type: actionTypes.SET_OPEN_LOGIN_MODAL,
+                  payload: true,
+                })
+              }
+            >
+              Login
+            </button>
+          )}
         </div>
       </div>
     </div>

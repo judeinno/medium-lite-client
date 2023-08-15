@@ -1,8 +1,5 @@
 const state = {
-  user: {
-    name: "Richard Arthur",
-    email: "test@gmail.com",
-  },
+  user: null,
   openSignupModal: false,
   openLoginModal: false,
 };

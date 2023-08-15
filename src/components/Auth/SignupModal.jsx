@@ -1,10 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { useStateValue } from "../../store";
 import * as actionTypes from "../../store/actionTypes";
+import { signup } from "../../services/auth";
+import { toast } from "react-toastify";
 
 function SignupModal() {
   const [state, dispatch] = useStateValue();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignup = async () => {
+    try {
+      const res = await signup({ name, email, password });
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+      toast.error("Invalid credentials!");
+    }
+  };
+
+  const openLoginModal = () => {
+    dispatch({
+      type: actionTypes.SET_OPEN_LOGIN_MODAL,
+      payload: true,
+    });
+    dispatch({
+      type: actionTypes.SET_OPEN_SIGNUP_MODAL,
+      payload: false,
+    });
+  };
+
   return (
     <Dialog
       open={state.openSignupModal}
@@ -27,12 +54,14 @@ function SignupModal() {
               <input
                 type="text"
                 className="border border-black outline-none rounded-md p-2"
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="flex flex-col gap-1">
               <label>Email</label>
               <input
                 type="text"
+                onChange={(e) => setEmail(e.target.value)}
                 className="border border-black outline-none rounded-md p-2"
               />
             </div>
@@ -41,12 +70,27 @@ function SignupModal() {
               <input
                 type="text"
                 className="border border-black outline-none rounded-md p-2"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
-            <button className="bg-yellow rounded-lg px-8 py-3 font-bold">
+            <button
+              className="bg-yellow rounded-lg px-8 py-3 font-bold disabled:cursor-not-allowed disabled:bg-gray-400"
+              disabled={
+                email.length === 0 || name.length === 0 || email.length === 0
+              }
+              onClick={handleSignup}
+            >
               Sign Up
             </button>
+          </div>
+          <div className="mt-5 text-gray-500">
+            <p>
+              Already have an account?{" "}
+              <button className="underline" onClick={openLoginModal}>
+                Login
+              </button>
+            </p>
           </div>
         </Dialog.Panel>
       </div>

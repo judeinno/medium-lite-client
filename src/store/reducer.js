@@ -12,6 +12,11 @@ const reducer = (state, action) => {
         ...state,
         openSignupModal: action.payload,
       };
+    case actionTypes.SET_USER_DATA:
+      return {
+        ...state,
+        user: action.payload,
+      };
   }
 };
 
