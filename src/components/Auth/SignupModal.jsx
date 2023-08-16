@@ -78,7 +78,7 @@ function SignupModal() {
             <div className="flex flex-col gap-1">
               <label>Password</label>
               <input
-                type="text"
+                type="password"
                 className="border border-black outline-none rounded-md p-2"
                 onChange={(e) => setPassword(e.target.value)}
               />
