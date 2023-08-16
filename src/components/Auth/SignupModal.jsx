@@ -4,14 +4,17 @@ import { useStateValue } from "../../store";
 import * as actionTypes from "../../store/actionTypes";
 import { signup } from "../../services/auth";
 import { toast } from "react-toastify";
+import { BiLoaderAlt } from "react-icons/bi";
 
 function SignupModal() {
   const [state, dispatch] = useStateValue();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSignup = async () => {
+    setLoading(true);
     try {
       const res = await signup({ name, email, password });
       console.log(res.data);
@@ -28,6 +31,8 @@ function SignupModal() {
     } catch (error) {
       console.log(error);
       toast.error("Invalid credentials!");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -85,13 +90,14 @@ function SignupModal() {
             </div>
 
             <button
-              className="bg-yellow rounded-lg px-8 py-3 font-bold disabled:cursor-not-allowed disabled:bg-gray-400"
+              className="bg-yellow rounded-lg px-8 py-3 font-bold disabled:cursor-not-allowed disabled:bg-gray-400 flex items-center gap-2"
               disabled={
-                email.length === 0 || name.length === 0 || email.length === 0
+                email.length === 0 || name.length === 0 || password.length < 5
               }
               onClick={handleSignup}
             >
               Sign Up
+              {loading && <BiLoaderAlt className="animate-spin text-xl" />}
             </button>
           </div>
           <div className="mt-5 text-gray-500">

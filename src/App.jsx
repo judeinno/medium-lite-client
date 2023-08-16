@@ -68,7 +68,7 @@ function App() {
       <div className="h-[60vh] bg-yellow flex flex-col justify-center border-b border-t border-black">
         <div className="flex w-8/12 mx-auto justify-between items-center">
           <div className="space-y-8">
-            <h2 className="text-8xl font-serif">
+            <h2 className="text-6xl lg:text-8xl font-serif">
               <Typewriter words={words} loop="1" typeSpeed={30} />
             </h2>
             <p className="text-2xl max-w-lg leading-6 font-garamond">

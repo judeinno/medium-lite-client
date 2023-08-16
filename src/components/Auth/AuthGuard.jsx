@@ -29,7 +29,8 @@ function AuthGuard({ children }) {
         payload: res.data.user,
       });
     } catch (error) {
-      toast.error("Error fetching user session!");
+      console.log("error fetching session");
+      // toast.error("Error fetching user session!");
     }
   };
 
