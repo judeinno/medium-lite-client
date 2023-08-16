@@ -4,6 +4,7 @@ import Profile from "../pages/profile";
 import Layout from "../components/Layout/Layout";
 import Post from "../pages/Posts/index";
 import AuthGuard from "../components/Auth/AuthGuard";
+import PostDetail from "../pages/Posts/postDetail";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,14 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <Post />
+      </Layout>
+    ),
+  },
+  {
+    path: "posts/:postId",
+    element: (
+      <Layout>
+        <PostDetail />
       </Layout>
     ),
   },

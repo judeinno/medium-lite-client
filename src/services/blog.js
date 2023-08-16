@@ -18,5 +18,10 @@ export const updatePost = async (id) => {
 };
 
 export const createPost = async (data) => {
-  return await axios.post("/blog/create", data);
+  return await axios.post("/blog/create", data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Accept: "multipart/form-data",
+    },
+  });
 };

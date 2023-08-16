@@ -11,25 +11,13 @@ function Navbar() {
   return (
     <div className="bg-yellow p-4 border-b border-black">
       <div className="w-8/12 mx-auto flex justify-between items-center">
-        <h2 className="font-bold text-4xl font-garamond">
+        <h2 className="font-bold text-4xl font-sora">
           <Link to="/">StuBlog</Link>
         </h2>
 
         <div className="relative flex items-center gap-8">
           {state.user ? (
             <>
-              <button
-                className="flex items-center gap-2 text-gray-700"
-                onClick={() => {
-                  dispatch({
-                    type: actionTypes.SET_OPEN_WRITE_POST_MODAL,
-                    payload: true,
-                  });
-                }}
-              >
-                <HiOutlinePencilSquare className="text-2xl" />
-                <p>Write</p>
-              </button>
               <ProfileButton />
             </>
           ) : (

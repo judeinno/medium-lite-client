@@ -11,17 +11,36 @@ import ProfileButton from "./components/Navabar/ProfileButton";
 import hero from "../src/assets/hero.svg";
 import { Typewriter } from "react-simple-typewriter";
 import { words } from "../src/lib/constants";
+import Footer from "./components/Footer/Footer";
+import { useEffect, useState } from "react";
+import { getAllPost } from "../src/services/blog";
+import FakePost from "./components/Post/FakePost";
+import WritePostModal from "./components/Post/WritePostModal";
 
 function App() {
   const [state, dispatch] = useStateValue();
+  const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+
+  const getPosts = async () => {
+    try {
+      const res = await getAllPost();
+      setPosts(res.data.blogs);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
       <div className="bg-yello p-4 bg-yellow">
         <div className="w-8/12 mx-auto flex justify-between items-center">
           <h2 className="font-bold text-4xl font-sora">StuBlog</h2>
-          <div className="flex items-center gap-10">
+          <div className="flex items-center gap-5">
             <div className="text font-semibold">
               <Link to="/posts">All Posts</Link>
             </div>
@@ -90,13 +109,17 @@ function App() {
         </div>
       </section>
 
-      <section className="w-8/12 mx-auto border-b mt-10 pb-5">
+      <section className="w-8/12 mx-auto mb-10 mt-10 pb-5">
         <div className="mx-auto flex gap-20">
           <div className="space-y-12 flex-[0.6]">
-            <BlogPost />
-            <BlogPost />
-            <BlogPost />
-            <BlogPost />
+            {posts.map((post) => {
+              return <BlogPost post={post} key={post._id} />;
+            })}
+            {/* {Array(10)
+              .fill(0)
+              .map((fake, idx) => {
+                return <FakePost key={idx} />;
+              })} */}
           </div>
           <div className="flex-[0.4]">
             <h3 className="font-bold">Discover more of what matters to you</h3>
@@ -114,6 +137,8 @@ function App() {
       </section>
       <LoginModal />
       <SignupModal />
+      <WritePostModal />
+      <Footer />
     </>
   );
 }

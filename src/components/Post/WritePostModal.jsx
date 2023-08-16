@@ -5,6 +5,7 @@ import * as actionTypes from "../../store/actionTypes";
 import { GrClose } from "react-icons/gr";
 import { createPost } from "../../services/blog";
 import { toast } from "react-toastify";
+import { BiLoaderAlt } from "react-icons/bi";
 
 function WritePostModal() {
   const [state, dispatch] = useStateValue();
@@ -15,19 +16,23 @@ function WritePostModal() {
   const [image, setImage] = useState(null);
 
   const handleCreatePost = async () => {
+    setLoading(true);
     try {
-      const data = {
-        title,
-        description,
-        // content,
-        image: image[0],
-      };
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("content", content);
+      formData.append("image", image[0]);
+      await createPost(formData);
+
       toast.success("Post Published!!!");
-      console.log(data);
-      //   const res = await createPost(data);
-      //   console.log(res.data);
     } catch (error) {
-      console.log(error);
+      toast.error("Error uploading post!!! try again");
+    } finally {
+      dispatch({
+        type: actionTypes.SET_OPEN_WRITE_POST_MODAL,
+        payload: false,
+      });
     }
   };
 
@@ -112,10 +117,11 @@ function WritePostModal() {
 
             <div className="flex justify-end">
               <button
-                className="text-black font-bold rounded-full bg-yellow px-5 py-2"
+                className="text-black font-bold rounded-full bg-yellow px-5 py-2 flex items-center gap-2"
                 onClick={handleCreatePost}
               >
                 Publish
+                {loading && <BiLoaderAlt className="animate-spin text-xl" />}
               </button>
             </div>
           </div>

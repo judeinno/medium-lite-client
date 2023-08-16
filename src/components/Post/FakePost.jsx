@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { faker } from "@faker-js/faker";
 import { Link } from "react-router-dom";
 
-function BlogPost({ post }) {
+function FakePost() {
   return (
     <div className="flex justify-between">
       <div className="flex flex-col gap-3">
@@ -10,18 +10,18 @@ function BlogPost({ post }) {
           <img src={faker.image.url()} className="h-6 w-6 rounded-full" />
           <p className="font-bold text-sm">{faker.person.fullName()}</p>
         </div>
-        <Link to={`posts/${post._id}`}>
-          <p className="text-xl font-bold">{post.title}</p>
-          <p className="text-gray-500">{post.description}</p>
+        <Link className="w-10/12">
+          <p className="text-xl font-bold">{faker.lorem.lines(1)}</p>
+          <p className="text-gray-500">{faker.lorem.sentence()}</p>
         </Link>
+        {/* <p className="text-sm text-gray-500">
+        {new Date(faker.date.recent({ days: 10 }))} · 4 min read
+      </p> */}
         <p className="text-sm text-gray-500">Aug 9 · 4 min read</p>
       </div>
-      <img
-        src={post.image ?? faker.image.url()}
-        className="h-32 w-48 object-cover"
-      />
+      <img src={faker.image.url()} className="h-32 w-48 object-cover" />
     </div>
   );
 }
 
-export default BlogPost;
+export default FakePost;
