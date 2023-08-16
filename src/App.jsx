@@ -6,20 +6,24 @@ import LoginModal from "./components/Auth/LoginModal";
 import { useStateValue } from "./store";
 import * as actionTypes from "./store/actionTypes";
 import SignupModal from "./components/Auth/SignupModal";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ProfileButton from "./components/Navabar/ProfileButton";
+import hero from "../src/assets/hero.svg";
+import { Typewriter } from "react-simple-typewriter";
+import { words } from "../src/lib/constants";
 
 function App() {
   const [state, dispatch] = useStateValue();
+  const navigate = useNavigate();
 
   return (
     <>
       <div className="bg-yello p-4 bg-yellow">
         <div className="w-8/12 mx-auto flex justify-between items-center">
-          <h2 className="font-bold text-4xl">Medium</h2>
+          <h2 className="font-bold text-4xl font-sora">StuBlog</h2>
           <div className="flex items-center gap-10">
             <div className="text font-semibold">
-              <Link>All Posts</Link>
+              <Link to="/posts">All Posts</Link>
             </div>
             <div className="relative">
               {state.user ? (
@@ -42,17 +46,30 @@ function App() {
         </div>
       </div>
 
-      <div className="h-[50vh] bg-yellow flex flex-col justify-center border-b border-t border-black">
-        <div className="w-8/12 mx-auto space-y-10">
-          <h2 className="text-8xl">Stay Curious.</h2>
-          <p className="text-2xl max-w-lg leading-6">
-            Discover stories, thinking, and expertise from writers on any topic.
-          </p>
-          <p>
-            <button className="bg-black text-white rounded-full px-12 py-3 hover:scale-110 duration-200">
-              Start reading
-            </button>
-          </p>
+      <div className="h-[60vh] bg-yellow flex flex-col justify-center border-b border-t border-black">
+        <div className="flex w-8/12 mx-auto justify-between items-center">
+          <div className="space-y-8">
+            <h2 className="text-8xl font-serif">
+              <Typewriter words={words} loop="1" typeSpeed={30} />
+            </h2>
+            <p className="text-2xl max-w-lg leading-6 font-garamond">
+              Discover stories, thinking, and expertise from writers on any
+              topic.
+            </p>
+            <p>
+              <button
+                className="bg-black text-white rounded-full px-12 py-3 hover:scale-110 duration-200"
+                onClick={() => {
+                  navigate("/posts");
+                }}
+              >
+                Start reading
+              </button>
+            </p>
+          </div>
+          <div>
+            <img src={hero} className="w-96 h-96" />
+          </div>
         </div>
       </div>
 

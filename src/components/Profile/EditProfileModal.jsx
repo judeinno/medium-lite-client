@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { GrClose } from "react-icons/gr";
 
 function EditProfile({ isOpen, setIsOpen }) {
+  const [name, setName] = useState("");
+
   return (
     <Dialog
       open={isOpen}
@@ -19,7 +21,7 @@ function EditProfile({ isOpen, setIsOpen }) {
               <GrClose />
             </button>
           </Dialog.Title>
-          <div className="mt-5 space-y-5">
+          <div className="mt-5">
             <span className="text-sm text-gray-400">Photo</span>
             <div className="flex gap-5 items-start">
               <div className="flex-[0.2]">
@@ -40,30 +42,24 @@ function EditProfile({ isOpen, setIsOpen }) {
               </div>
             </div>
 
-            {/* <div className="flex flex-col gap-1">
-              <label>Email</label>
+            <div className="flex flex-col gap-1 mt-10">
+              <label className="text-sm">Name</label>
               <input
                 type="email"
-                className="border border-black outline-none rounded-md p-2"
-                onChange={(e) => setEmail(e.target.value)}
+                className="border border-black outline-none border-t-0 border-r-0 border-l-0 border-b"
+                onChange={(e) => setName(e.target.value)}
               />
-            </div> */}
-            {/* <div className="flex flex-col gap-1">
-              <label>Password</label>
-              <input
-                type="password"
-                className="border border-black outline-none rounded-md p-2"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div> */}
+            </div>
 
-            {/* <button
-              className="bg-yellow rounded-lg px-8 py-3 font-bold disabled:cursor-not-allowed disabled:bg-gray-400"
-              onClick={handleLogin}
-              disabled={email.length === 0 || password.length === 0}
-            >
-              Login
-            </button> */}
+            <div className="mt-10 flex justify-end">
+              <button
+                className="bg-green-600 text-white rounded-full px-6 py-2 font-bold disabled:cursor-not-allowed disabled:bg-gray-400"
+                // onClick={handleLogin}
+                // disabled={email.length === 0 || password.length === 0}
+              >
+                Save
+              </button>
+            </div>
           </div>
         </Dialog.Panel>
       </div>

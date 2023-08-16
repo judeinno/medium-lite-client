@@ -15,6 +15,16 @@ function SignupModal() {
     try {
       const res = await signup({ name, email, password });
       console.log(res.data);
+      localStorage.setItem("token", res.data.accessToken);
+      dispatch({
+        type: actionTypes.SET_USER_DATA,
+        payload: { ...res.data },
+      });
+      redirect("/");
+      dispatch({
+        type: actionTypes.SET_OPEN_SIGNUP_MODAL,
+        payload: false,
+      });
     } catch (error) {
       console.log(error);
       toast.error("Invalid credentials!");

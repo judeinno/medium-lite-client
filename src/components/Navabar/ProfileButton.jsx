@@ -1,9 +1,21 @@
 import React from "react";
 import { Menu } from "@headlessui/react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { PiCaretDownThin } from "react-icons/pi";
+import { useStateValue } from "../../store";
+import * as actionTypes from "../../store/actionTypes";
 
 function ProfileButton() {
+  const [state, dispatch] = useStateValue();
+
+  const handleLogout = () => {
+    dispatch({
+      type: actionTypes.SET_USER_DATA,
+      payload: null,
+    });
+    localStorage.removeItem("token");
+    redirect("/");
+  };
   return (
     <Menu>
       <Menu.Button className="flex items-center gap-2">
@@ -26,12 +38,12 @@ function ProfileButton() {
         </Menu.Item>
         <Menu.Item>
           {({ active }) => (
-            <a
-              className={`${active && "bg-gray-200"} px-2 p-1`}
-              href="/account-settings"
+            <button
+              className={`${active && "bg-gray-200"} px-2 py-1 text-left`}
+              onClick={handleLogout}
             >
               Sign Out
-            </a>
+            </button>
           )}
         </Menu.Item>
       </Menu.Items>

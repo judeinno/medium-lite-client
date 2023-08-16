@@ -4,19 +4,34 @@ import { useStateValue } from "../../store";
 import * as actionTypes from "../../store/actionTypes";
 import { login } from "../../services/auth";
 import { toast } from "react-toastify";
+import { BiLoaderAlt } from "react-icons/bi";
+import { redirect } from "react-router-dom";
 
 function LoginModal() {
   const [state, dispatch] = useStateValue();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     try {
-      // const res = await login({ email, password });
-      // console.log(res.data);
+      setLoading(true);
+      const res = await login({ email, password });
+      localStorage.setItem("token", res.data.accessToken);
+      dispatch({
+        type: actionTypes.SET_USER_DATA,
+        payload: { ...res.data.user },
+      });
+      redirect("/");
+      dispatch({
+        type: actionTypes.SET_OPEN_LOGIN_MODAL,
+        payload: false,
+      });
     } catch (error) {
       console.log(error);
       toast.error("Invalid credentials!");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -66,11 +81,12 @@ function LoginModal() {
             </div>
 
             <button
-              className="bg-yellow rounded-lg px-8 py-3 font-bold disabled:cursor-not-allowed disabled:bg-gray-400"
+              className="bg-yellow rounded-lg px-8 py-3 font-bold disabled:cursor-not-allowed disabled:bg-gray-400 flex items-center gap-2"
               onClick={handleLogin}
               disabled={email.length === 0 || password.length === 0}
             >
-              Login
+              Login{" "}
+              {loading && <BiLoaderAlt className="animate-spin text-xl" />}
             </button>
           </div>
 

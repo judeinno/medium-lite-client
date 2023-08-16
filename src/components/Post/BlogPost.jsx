@@ -19,7 +19,10 @@ function BlogPost() {
         </div>
         <p className="text-sm text-gray-500">Aug 9 · 4 min read</p>
       </div>
-      <img src="https://picsum.photos/200/300" className="h-32 w-48" />
+      <img
+        src="https://picsum.photos/500/500"
+        className="h-32 w-48 object-cover"
+      />
     </div>
   );
 }

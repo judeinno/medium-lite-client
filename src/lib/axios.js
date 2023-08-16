@@ -9,6 +9,14 @@ const ApiClient = () => {
     },
   });
 
+  instance.interceptors.request.use(async (request) => {
+    const access_token = localStorage.getItem("token");
+    if (access_token) {
+      request.headers["Authorization"] = `Bearer ${access_token}`;
+    }
+    return request;
+  });
+
   return instance;
 };
 
