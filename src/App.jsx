@@ -66,9 +66,9 @@ function App() {
       </div>
 
       <div className="h-[60vh] bg-yellow flex flex-col justify-center border-b border-t border-black">
-        <div className="flex w-8/12 mx-auto justify-between items-center">
-          <div className="space-y-8">
-            <h2 className="text-6xl 2xl:text-8xl font-serif">
+        <div className="flex w-8/12 mx-auto justify-around items-center">
+          <div className="space-y-8 flex-[0.6]">
+            <h2 className="text-6xl 2xl:text-8xl font-serif min-h-[12rem]">
               <Typewriter words={words} loop="1" typeSpeed={30} />
             </h2>
             <p className="text-2xl max-w-lg leading-6 font-garamond">
@@ -87,7 +87,7 @@ function App() {
             </p>
           </div>
           <div>
-            <img src={hero} className="w-64 h-64 s2xl:w-96 2xl:h-96" />
+            <img src={hero} className="w-64 h-64 2xl:w-96 2xl:h-96" />
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { PiCaretDownThin } from "react-icons/pi";
 import { useStateValue } from "../../store";
 import * as actionTypes from "../../store/actionTypes";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
+import ProfileIcon from "../Profile/ProfileIcon";
 
 function ProfileButton() {
   const [state, dispatch] = useStateValue();
@@ -33,9 +34,13 @@ function ProfileButton() {
       </button>
       <Menu>
         <Menu.Button className="flex items-center gap-2">
-          <img
+          {/* <img
             src="https://picsum.photos/200/300"
             className="h-10 w-10 rounded-full"
+          /> */}
+          <ProfileIcon
+            name={state.user.name}
+            className="h-10 w-10 text-lg bg-black text-white"
           />
           <PiCaretDownThin />
         </Menu.Button>

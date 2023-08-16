@@ -25,3 +25,7 @@ export const createPost = async (data) => {
     },
   });
 };
+
+export const getAllUserPost = async () => {
+  return await axios.get("/blog/my-blogs");
+};

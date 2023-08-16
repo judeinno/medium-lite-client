@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { useStateValue } from "../../store";
 import * as actionTypes from "../../store/actionTypes";
@@ -6,14 +6,17 @@ import { GrClose } from "react-icons/gr";
 import { createPost } from "../../services/blog";
 import { toast } from "react-toastify";
 import { BiLoaderAlt } from "react-icons/bi";
+import { Editor } from "@tinymce/tinymce-react";
+import { useNavigate } from "react-router-dom";
 
 function WritePostModal() {
   const [state, dispatch] = useStateValue();
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
+  const editorRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleCreatePost = async () => {
     setLoading(true);
@@ -21,14 +24,18 @@ function WritePostModal() {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("description", description);
-      formData.append("content", content);
+      formData.append("content", editorRef.current.getContent());
       formData.append("image", image[0]);
       await createPost(formData);
 
       toast.success("Post Published!!!");
+      navigate(0);
     } catch (error) {
+      console.log(error);
       toast.error("Error uploading post!!! try again");
     } finally {
+      setImage(null);
+      setLoading(false);
       dispatch({
         type: actionTypes.SET_OPEN_WRITE_POST_MODAL,
         payload: false,
@@ -49,7 +56,7 @@ function WritePostModal() {
     >
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
 
-      <div className="fixed inset-0 flex items-center justify-center p-4">
+      <div className="fixed inset-0 overflow-y-auto flex items-center justify-center">
         {/* The actual dialog panel  */}
         <Dialog.Panel className="mx-auto w-5/12 rounded bg-white p-8">
           <Dialog.Title className="flex items-center justify-between">
@@ -85,12 +92,42 @@ function WritePostModal() {
 
             <div className="flex flex-col gap-2">
               <label>Content</label>
-              <textarea
-                className="rounded-md border-2 border-black p-2"
-                rows={10}
-                cols={10}
-                onChange={(e) => setContent(e.target.value)}
-              ></textarea>
+              <Editor
+                apiKey={import.meta.env.VITE_TINY_MCE}
+                onInit={(evt, editor) => (editorRef.current = editor)}
+                initialValue=""
+                init={{
+                  height: 300,
+                  menubar: false,
+                  resize: false,
+                  plugins: [
+                    "advlist",
+                    "autolink",
+                    "lists",
+                    "link",
+                    "image",
+                    "charmap",
+                    "preview",
+                    "anchor",
+                    "searchreplace",
+                    "visualblocks",
+                    "code",
+                    "fullscreen",
+                    "insertdatetime",
+                    "media",
+                    "table",
+                    "code",
+                    "wordcount",
+                  ],
+                  toolbar:
+                    "undo redo | blocks | " +
+                    "bold italic forecolor | alignleft aligncenter " +
+                    "alignright alignjustify | bullist numlist outdent indent | " +
+                    "removeformat",
+                  content_style:
+                    "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                }}
+              />
             </div>
 
             <div>

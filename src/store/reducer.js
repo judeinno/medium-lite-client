@@ -16,6 +16,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         user: action.payload,
+        userLoading: false,
       };
     case actionTypes.SET_OPEN_WRITE_POST_MODAL:
       return {

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { GrClose } from "react-icons/gr";
+import { useStateValue } from "../../store";
 
 function EditProfile({ isOpen, setIsOpen, image }) {
-  const [name, setName] = useState("");
+  const [state, dispatch] = useStateValue();
+  const [name, setName] = useState(state.user.name);
 
   return (
     <Dialog
@@ -42,7 +44,8 @@ function EditProfile({ isOpen, setIsOpen, image }) {
             <div className="flex flex-col gap-1 mt-10">
               <label className="text-sm">Name</label>
               <input
-                type="email"
+                type="text"
+                value={name}
                 className="border border-black outline-none border-t-0 border-r-0 border-l-0 border-b"
                 onChange={(e) => setName(e.target.value)}
               />

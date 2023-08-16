@@ -8,9 +8,9 @@ function BlogPost({ post }) {
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-2">
           <img src={faker.image.url()} className="h-6 w-6 rounded-full" />
-          <p className="font-bold text-sm">{faker.person.fullName()}</p>
+          <p className="font-bold text-sm capitalize">{post.author.name}</p>
         </div>
-        <Link to={`posts/${post._id}`}>
+        <Link to={`/posts/${post._id}`} className="w-10/12">
           <p className="text-xl font-bold">{post.title}</p>
           <p className="text-gray-500">{post.description}</p>
         </Link>
