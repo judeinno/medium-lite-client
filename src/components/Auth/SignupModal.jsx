@@ -5,6 +5,7 @@ import * as actionTypes from "../../store/actionTypes";
 import { signup } from "../../services/auth";
 import { toast } from "react-toastify";
 import { BiLoaderAlt } from "react-icons/bi";
+import { redirect } from "react-router-dom";
 
 function SignupModal() {
   const [state, dispatch] = useStateValue();
@@ -17,11 +18,10 @@ function SignupModal() {
     setLoading(true);
     try {
       const res = await signup({ name, email, password });
-      console.log(res.data);
       localStorage.setItem("token", res.data.accessToken);
       dispatch({
         type: actionTypes.SET_USER_DATA,
-        payload: { ...res.data },
+        payload: { ...res.data.user },
       });
       redirect("/");
       dispatch({
@@ -30,7 +30,7 @@ function SignupModal() {
       });
     } catch (error) {
       console.log(error);
-      toast.error("Invalid credentials!");
+      toast.error("Error signing up!!!");
     } finally {
       setLoading(false);
     }

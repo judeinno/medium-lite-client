@@ -1,6 +1,6 @@
 import React from "react";
 
-function Trending() {
+function Trending({ post }) {
   return (
     <div className="flex gap-5">
       <h2 className="text-4xl text-gray-300"></h2>
@@ -10,10 +10,16 @@ function Trending() {
             src="https://picsum.photos/200/300"
             className="h-5 w-5 rounded-full"
           />
-          <p className="font-bold">Marie Le Conte</p>
+          <p className="font-bold">{post.author.name}</p>
         </div>
-        <p className="text-lg font-bold">Limbs</p>
-        <p className="text-sm text-gray-400">Aug 9 · 4 min read</p>
+        <p className="text-lg font-bold">{post.title.substring(0, 40)}...</p>
+        <p className="text-sm text-gray-400">
+          {new Date(post.createdAt)
+            .toUTCString()
+            .split(" ")
+            .slice(0, 5)
+            .join(" ")}
+        </p>
       </div>
     </div>
   );

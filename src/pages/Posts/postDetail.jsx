@@ -17,6 +17,7 @@ function PostDetail() {
     try {
       const res = await getPostDetail(postId);
       setPost(res.data.blog);
+      console.log(res.data.blog.content);
     } catch (e) {
       console.log(e);
     } finally {
@@ -51,7 +52,7 @@ function PostDetail() {
               </div>
             </div>
 
-            <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
+            <div dangerouslySetInnerHTML={{ __html: post.content }} />
           </div>
         </div>
       )}

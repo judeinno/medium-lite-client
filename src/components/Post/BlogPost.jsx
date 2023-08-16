@@ -14,7 +14,13 @@ function BlogPost({ post }) {
           <p className="text-xl font-bold">{post.title}</p>
           <p className="text-gray-500">{post.description}</p>
         </Link>
-        <p className="text-sm text-gray-500">Aug 9 · 4 min read</p>
+        <p className="text-sm text-gray-500">
+          {new Date(post.createdAt)
+            .toUTCString()
+            .split(" ")
+            .slice(0, 5)
+            .join(" ")}
+        </p>
       </div>
       <img
         src={post.image ?? faker.image.url()}

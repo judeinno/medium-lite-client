@@ -11,3 +11,7 @@ export const signup = async (data) => {
 export const profile = async () => {
   return await axios.get("/user/profile");
 };
+
+export const updateProfile = async (data) => {
+  return await axios.put("/user/profile", data);
+};

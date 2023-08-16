@@ -38,10 +38,12 @@ function ProfileButton() {
             src="https://picsum.photos/200/300"
             className="h-10 w-10 rounded-full"
           /> */}
-          <ProfileIcon
-            name={state.user.name}
-            className="h-10 w-10 text-lg bg-black text-white"
-          />
+          {state.user && (
+            <ProfileIcon
+              name={state.user.name}
+              className="h-10 w-10 text-lg bg-black text-white"
+            />
+          )}
           <PiCaretDownThin />
         </Menu.Button>
         <Menu.Items className="absolute top-12 flex flex-col w-60 bg-white px-3 py-5 rounded-md shadow-md">

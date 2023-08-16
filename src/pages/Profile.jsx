@@ -10,8 +10,8 @@ import { getAllUserPost } from "../services/blog";
 function Profile() {
   const [state, dispatch] = useStateValue();
   const [openEditModal, setOpenEditModal] = useState(false);
-  const [posts, setPosts] = useState([...Array(10).fill(0)]);
-  const image = faker.image.nature();
+  const [posts, setPosts] = useState([]);
+  const image = faker.image.url();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,7 +21,6 @@ function Profile() {
   const getPosts = async () => {
     try {
       const res = await getAllUserPost();
-      console.log(res.data);
       setPosts(res.data.blogs);
     } catch (error) {
       console.log(error);
@@ -61,18 +60,24 @@ function Profile() {
             </Tab.List>
             <Tab.Panels className="mt-10">
               <Tab.Panel>
-                <div className="space-y-10">
-                  {posts.map((post, idx) => {
-                    return (
-                      <div
-                        key={post._id}
-                        className="border-b border-gray-300 pb-5"
-                      >
-                        <BlogPost post={post} />
-                      </div>
-                    );
-                  })}
-                </div>
+                {posts.length > 0 ? (
+                  <div className="space-y-10">
+                    {posts.map((post, idx) => {
+                      return (
+                        <div
+                          key={post._id}
+                          className="border-b border-gray-300 pb-5"
+                        >
+                          <BlogPost post={post} />
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="text-3xl font-bold text-center p-10">
+                    You have no Blog Post
+                  </div>
+                )}
               </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>

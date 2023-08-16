@@ -99,12 +99,9 @@ function App() {
             <p className="text-lg">Trending today</p>
           </div>
           <div className="trending mt-5 bg-grey grid grid-cols-3 gap-10 pb-10">
-            <Trending />
-            <Trending />
-            <Trending />
-            <Trending />
-            <Trending />
-            <Trending />
+            {posts.slice(0, 6).map((post) => {
+              return <Trending post={post} key={post._id} />;
+            })}
           </div>
         </div>
       </section>

@@ -2,10 +2,35 @@ import React, { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { GrClose } from "react-icons/gr";
 import { useStateValue } from "../../store";
+import { updateProfile } from "../../services/auth";
+import { toast } from "react-toastify";
+import { BiLoaderAlt } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
+import * as actionTypes from "../../store/actionTypes";
 
 function EditProfile({ isOpen, setIsOpen, image }) {
   const [state, dispatch] = useStateValue();
   const [name, setName] = useState(state.user.name);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleProfileUpdate = async () => {
+    setLoading(true);
+    try {
+      const res = await updateProfile({ name });
+      dispatch({
+        type: actionTypes.SET_USER_DATA,
+        payload: res.data.user,
+      });
+      toast.success("Profile Updated successfully!");
+      setIsOpen(false);
+    } catch (e) {
+      toast.error("Error updating profile");
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Dialog
@@ -53,11 +78,12 @@ function EditProfile({ isOpen, setIsOpen, image }) {
 
             <div className="mt-10 flex justify-end">
               <button
-                className="bg-green-600 text-white rounded-full px-6 py-2 font-bold disabled:cursor-not-allowed disabled:bg-gray-400"
-                // onClick={handleLogin}
+                className="bg-green-600 text-white rounded-full px-6 py-2 font-bold disabled:cursor-not-allowed disabled:bg-gray-400 flex items-center gap-2"
+                onClick={handleProfileUpdate}
                 // disabled={email.length === 0 || password.length === 0}
               >
                 Save
+                {loading && <BiLoaderAlt className="animate-spin text-xl" />}
               </button>
             </div>
           </div>

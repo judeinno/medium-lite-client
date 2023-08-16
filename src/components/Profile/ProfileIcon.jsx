@@ -6,10 +6,10 @@ function ProfileIcon({ name, className }) {
     <div
       className={`rounded-full border shadow-md grid place-items-center ${className}`}
     >
-      <p className="font-bold">
+      <p className="font-bold uppercase">
         {displayName.length > 1
           ? `${displayName[0][0]}${displayName[1][0]}`
-          : displayName[0]}
+          : displayName[0][0]}
       </p>
     </div>
   );
