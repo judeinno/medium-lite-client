@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu } from "@headlessui/react";
-import { Link, redirect } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import { PiCaretDownThin } from "react-icons/pi";
 import { useStateValue } from "../../store";
 import * as actionTypes from "../../store/actionTypes";
@@ -9,9 +9,10 @@ import ProfileIcon from "../Profile/ProfileIcon";
 
 function ProfileButton() {
   const [state, dispatch] = useStateValue();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    redirect("/");
+    navigate("/");
     dispatch({
       type: actionTypes.SET_USER_DATA,
       payload: null,
