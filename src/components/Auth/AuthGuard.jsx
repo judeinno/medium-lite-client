@@ -9,12 +9,12 @@ import { BiLoaderAlt } from "react-icons/bi";
 function AuthGuard({ children }) {
   const [state, dispatch] = useStateValue();
   const [loading, setLoading] = useState(true);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      // navigate("/", { replace: true });
+      navigate("/", { replace: true });
     } else {
       getUser();
     }

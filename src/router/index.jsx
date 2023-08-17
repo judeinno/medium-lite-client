@@ -9,30 +9,40 @@ import PostDetail from "../pages/Posts/postDetail";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <AuthGuard>
+        <App />
+      </AuthGuard>
+    ),
   },
   {
     path: "/profile",
     element: (
-      <Layout>
-        <Profile />
-      </Layout>
+      <AuthGuard>
+        <Layout>
+          <Profile />
+        </Layout>
+      </AuthGuard>
     ),
   },
   {
     path: "/posts",
     element: (
-      <Layout>
-        <Post />
-      </Layout>
+      <AuthGuard>
+        <Layout>
+          <Post />
+        </Layout>
+      </AuthGuard>
     ),
   },
   {
     path: "posts/:postId",
     element: (
-      <Layout>
-        <PostDetail />
-      </Layout>
+      <AuthGuard>
+        <Layout>
+          <PostDetail />
+        </Layout>
+      </AuthGuard>
     ),
   },
 ]);
