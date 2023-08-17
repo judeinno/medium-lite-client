@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
-import Profile from "../pages/profile";
+import Profile from "../../src/pages/Profile";
 import Layout from "../components/Layout/Layout";
 import Post from "../pages/Posts/index";
 import AuthGuard from "../components/Auth/AuthGuard";
